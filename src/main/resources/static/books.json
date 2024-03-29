@@ -1,0 +1,39 @@
+{
+  "books": [
+    {
+      "type": "Paperback",
+      "author": "George Orwell",
+      "name": "1984",
+      "price": 10.99,
+      "image": "1984.jpg"
+    },
+    {
+      "type": "Hardcover",
+      "author": "J.R.R. Tolkien",
+      "name": "The Lord of the Rings",
+      "price": 25.99,
+      "image": "lotr.jpg"
+    },
+    {
+      "type": "E-book",
+      "author": "Harper Lee",
+      "name": "To Kill a Mockingbird",
+      "price": 9.99,
+      "image": "tkam.jpg"
+    },
+    {
+      "type": "Paperback",
+      "author": "J.K. Rowling",
+      "name": "Harry Potter and the Philosopher's Stone",
+      "price": 12.99,
+      "image": "harrypotter.jpg"
+    },
+    {
+      "type": "E-book",
+      "author": "Stephen King",
+      "name": "The Shining",
+      "price": 8.99,
+      "image": "theshining.jpg"
+    }
+  ]
+}
