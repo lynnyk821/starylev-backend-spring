@@ -1,6 +1,6 @@
 package com.example.starylevbackendspring.controllers;
 
-import com.example.starylevbackendspring.helpers.JsonUtility;
+import com.example.starylevbackendspring.utils.JsonUtility;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,8 @@ import java.io.IOException;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
-    private static final String PATH = "static/data/home-images.json";
-    @GetMapping(value = "/home-images")
+    private static final String PATH = "static/data/promotions.json";
+    @GetMapping(value = "/promotions")
     public ResponseEntity<String> getHomeImages() throws IOException {
         return JsonUtility.getJson(PATH);
     }

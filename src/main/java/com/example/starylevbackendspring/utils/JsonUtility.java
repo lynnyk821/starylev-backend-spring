@@ -1,4 +1,4 @@
-package com.example.starylevbackendspring.helpers;
+package com.example.starylevbackendspring.utils;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;

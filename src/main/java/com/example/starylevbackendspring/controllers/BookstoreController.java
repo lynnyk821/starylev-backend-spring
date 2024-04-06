@@ -1,6 +1,6 @@
 package com.example.starylevbackendspring.controllers;
 
-import com.example.starylevbackendspring.helpers.JsonUtility;
+import com.example.starylevbackendspring.utils.JsonUtility;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
