@@ -16,6 +16,6 @@ public class HomeController {
     private static final String PATH = "static/data/promotions.json";
     @GetMapping(value = "/promotions")
     public ResponseEntity<String> getHomeImages() throws IOException {
-        return JsonUtility.getJson(PATH);
+        return JsonUtility.getResponseEntity(PATH);
     }
 }

@@ -16,6 +16,6 @@ public class BookstoreController {
     private static final String PATH = "static/data/books.json";
     @GetMapping(value = "/books")
     public ResponseEntity<String> getBooks() throws IOException {
-        return JsonUtility.getJson(PATH);
+        return JsonUtility.getResponseEntity(PATH);
     }
 }
