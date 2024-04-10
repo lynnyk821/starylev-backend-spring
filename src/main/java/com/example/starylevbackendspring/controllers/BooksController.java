@@ -16,10 +16,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BooksController {
     private final BooksService booksService;
+
     @Autowired
     public BooksController(BooksService booksService) {
         this.booksService = booksService;
     }
+
     @GetMapping(value = "/books")
     public List<Book> getBooks() {
         return booksService.getAllBooks();
