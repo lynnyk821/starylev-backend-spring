@@ -4,10 +4,7 @@ import com.example.starylevbackendspring.modules.Book;
 
 import com.example.starylevbackendspring.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,25 @@ public class BooksController {
     @GetMapping(value = "/books")
     public List<Book> getBooks() {
         return repository.getAllBooks();
+    }
+
+    @GetMapping(value = "/books/type/all")
+    public List<Book> getALlTypeBooks() {
+        return repository.getAllBooks();
+    }
+
+    @GetMapping(value = "/books/type/paper")
+    public List<Book> getPaperTypeBooks() {
+        return repository.getBooksByType("Паперова");
+    }
+
+    @GetMapping(value = "/books/type/package")
+    public List<Book> getPackageTypeBooks() {
+        return repository.getBooksByType("Набори");
+    }
+
+    @GetMapping(value = "/books/id={id}")
+    public Book getBooksByName(@PathVariable String id){
+        return repository.getBookByName(id);
     }
 }

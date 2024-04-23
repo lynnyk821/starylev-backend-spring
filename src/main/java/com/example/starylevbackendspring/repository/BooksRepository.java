@@ -27,4 +27,8 @@ public class BooksRepository {
     public List<Book> getBooksByType(String type) {
         return getBooksByQuery(String.format("SELECT * FROM books WHERE type = '%s'", type));
     }
+
+    public Book getBookByName(String id){
+        return getBooksByQuery(String.format("SELECT * FROM books WHERE id = '%s'", id)).get(0);
+    }
 }
