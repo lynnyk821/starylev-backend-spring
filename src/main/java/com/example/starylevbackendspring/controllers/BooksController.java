@@ -1,11 +1,13 @@
 package com.example.starylevbackendspring.controllers;
 
-import com.example.starylevbackendspring.modules.Book;
+import com.example.starylevbackendspring.models.Book;
 
-import com.example.starylevbackendspring.repository.BooksRepository;
+import com.example.starylevbackendspring.repositories.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -21,26 +23,34 @@ public class BooksController {
 
     @GetMapping(value = "/books")
     public List<Book> getBooks() {
-        return repository.getAllBooks();
+        return repository.getAllBooksFromTable();
     }
 
-    @GetMapping(value = "/books/type/all")
-    public List<Book> getALlTypeBooks() {
-        return repository.getAllBooks();
+    @GetMapping(value = "/books/types={data}")
+    public List<Book> getBooksByTypes(@PathVariable String data) {
+        if(data.equals("all")) return getBooks();
+
+        String[] types = getParamsFromString(data);
+        return repository.getBooksByTypes(types);
     }
 
-    @GetMapping(value = "/books/type/paper")
-    public List<Book> getPaperTypeBooks() {
-        return repository.getBooksByType("Паперова");
+    @GetMapping(value = "books/types={data}/count")
+    public Integer getCountOfBooksByType(@PathVariable String data){
+        if(data.equals("all")) return getBooks().size();
+
+        String[] types = getParamsFromString(data);
+        return repository.getCountOfBooksByTypes(types);
     }
 
-    @GetMapping(value = "/books/type/package")
-    public List<Book> getPackageTypeBooks() {
-        return repository.getBooksByType("Набори");
+    @GetMapping(value = "books/name={name}")
+    public List<Book> getBooksByName(@PathVariable String name){
+        return repository.getBooksByName(name);
     }
 
-    @GetMapping(value = "/books/id={id}")
-    public Book getBooksByName(@PathVariable String id){
-        return repository.getBookByName(id);
+    private String[] getParamsFromString(String data){
+        String[] allTypes = data.split("&");
+        HashSet<String> setOfTypes = new HashSet<>(allTypes.length);
+        setOfTypes.addAll(Arrays.asList(allTypes));
+        return setOfTypes.toArray(new String[0]);
     }
 }

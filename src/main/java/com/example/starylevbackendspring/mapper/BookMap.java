@@ -1,6 +1,6 @@
-package com.example.starylevbackendspring.repository;
+package com.example.starylevbackendspring.mapper;
 
-import com.example.starylevbackendspring.modules.Book;
+import com.example.starylevbackendspring.models.Book;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +10,16 @@ public class BookMap {
         Book book = new Book();
 
         try {
-            book.setId(resultSet.getLong("id"));
-            book.setType(resultSet.getString("type"));
-            book.setAuthor(resultSet.getString("author"));
+            book.setId(resultSet.getLong("book_id"));
+
+            book.setType(resultSet.getString("type_name"));
             book.setName(resultSet.getString("name"));
             book.setPrice(resultSet.getFloat("price"));
-            book.setImagePath(resultSet.getString("image_path"));
+
+            book.setAuthorName(resultSet.getString("author_name"));
+            book.setAuthorSurname(resultSet.getString("author_surname"));
+
+            book.setIconUrl(resultSet.getString("image_url"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
