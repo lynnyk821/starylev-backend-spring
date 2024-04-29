@@ -42,9 +42,14 @@ public class BooksController {
         return repository.getCountOfBooksByTypes(types);
     }
 
-    @GetMapping(value = "books/name={name}")
-    public List<Book> getBooksByName(@PathVariable String name){
-        return repository.getBooksByName(name);
+    @GetMapping(value = "books/search={value}")
+    public List<Book> searchBooksByValue(@PathVariable String value){
+        return repository.getBooksByValue(value);
+    }
+
+    @GetMapping(value = "books/id={id}")
+    public Book getBookById(@PathVariable String id){
+        return repository.getBookById(id);
     }
 
     private String[] getParamsFromString(String data){

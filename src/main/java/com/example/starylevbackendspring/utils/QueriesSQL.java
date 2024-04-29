@@ -25,12 +25,29 @@ public class QueriesSQL {
         return buildUnionQuery("SELECT COUNT(*) FROM (", values);
     }
 
+    public String getBookById(String id){
+        return String.format("SELECT * FROM %s WHERE %s = %s", tableName, columnName, id);
+    }
+
     public String selectItemsWhereColumnItemEqualsAll(String[] values) {
         return buildUnionQuery("SELECT * FROM (", values);
     }
 
-    public String selectItemsWhereColumnItemLike(String value){
-        return "SELECT * FROM " + tableName + " WHERE LOWER(" + columnName + ") LIKE " + "'%" + value.toLowerCase() + "%'";
+    public String selectForSearchBooks(String[] columnNames, String value) {
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ").append(tableName).append(" WHERE ");
+
+        for (int i = 0; i < columnNames.length; i++) {
+            String lowerColumnValue = "LOWER(" + columnNames[i] + ")";
+            String lowerValue = value.toLowerCase();
+
+            queryBuilder.append("(").append(lowerColumnValue).append(" LIKE '%").append(lowerValue).append("%')");
+
+            if (i < columnNames.length - 1) {
+                queryBuilder.append(" OR ");
+            }
+        }
+
+        return queryBuilder.toString();
     }
 
     public String buildUnionQuery(String startQuery, String[] values) {
