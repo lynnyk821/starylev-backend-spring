@@ -1,5 +1,7 @@
 package com.example.starylevbackendspring.utils;
 
+import com.example.starylevbackendspring.models.Book;
+
 public class QueriesSQL {
     private String columnName;
     private final String tableName;
@@ -33,6 +35,27 @@ public class QueriesSQL {
         return buildUnionQuery("SELECT * FROM (", values);
     }
 
+    public String insertBookIntoTable(){
+        return String.format(
+                "INSERT INTO %s " +
+                "(cart_id, book_type, book_name, book_author_name, book_author_surname, book_price)" +
+                "VALUES (?, ?, ?, ?, ?, ?)", tableName
+        );
+    }
+
+    public String buildUnionQuery(String startQuery, String[] values) {
+        StringBuilder queryBuilder = new StringBuilder(startQuery);
+        for (int i = 0; i < values.length; i++) {
+            String subQuery = selectItemsWhereColumnItemEquals(values[i]);
+            queryBuilder.append(subQuery);
+
+            if (i < values.length - 1) {
+                queryBuilder.append(" UNION ALL ");
+            }
+        }
+        return queryBuilder.append(") AS subquery;").toString();
+    }
+
     public String selectForSearchBooks(String[] columnNames, String value) {
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ").append(tableName).append(" WHERE ");
 
@@ -48,18 +71,5 @@ public class QueriesSQL {
         }
 
         return queryBuilder.toString();
-    }
-
-    public String buildUnionQuery(String startQuery, String[] values) {
-        StringBuilder queryBuilder = new StringBuilder(startQuery);
-        for (int i = 0; i < values.length; i++) {
-            String subQuery = selectItemsWhereColumnItemEquals(values[i]);
-            queryBuilder.append(subQuery);
-
-            if (i < values.length - 1) {
-                queryBuilder.append(" UNION ALL ");
-            }
-        }
-        return queryBuilder.append(") AS subquery;").toString();
     }
 }

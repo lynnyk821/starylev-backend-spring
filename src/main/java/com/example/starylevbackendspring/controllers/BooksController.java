@@ -2,6 +2,7 @@ package com.example.starylevbackendspring.controllers;
 
 import com.example.starylevbackendspring.models.Book;
 
+import com.example.starylevbackendspring.models.CartItem;
 import com.example.starylevbackendspring.repositories.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class BooksController {
         return repository.getBooksByTypes(types);
     }
 
-    @GetMapping(value = "books/types={data}/count")
+    @GetMapping(value = "/books/types={data}/count")
     public Integer getCountOfBooksByType(@PathVariable String data){
         if(data.equals("all")) return getBooks().size();
 
@@ -42,7 +43,7 @@ public class BooksController {
         return repository.getCountOfBooksByTypes(types);
     }
 
-    @GetMapping(value = "books/search={value}")
+    @GetMapping(value = "/books/search={value}")
     public List<Book> searchBooksByValue(@PathVariable String value){
         return repository.getBooksByValue(value);
     }
@@ -50,6 +51,22 @@ public class BooksController {
     @GetMapping(value = "books/id={id}")
     public Book getBookById(@PathVariable String id){
         return repository.getBookById(id);
+    }
+
+    @GetMapping(value = "/cart")
+    public List<CartItem> getCartItems(){
+        return repository.getAllCartItemsFromTable();
+    }
+
+    @GetMapping(value = "cart/id={id}")
+    public CartItem getCartItemById(@PathVariable String id){
+        return repository.getCartItemById(id);
+    }
+
+    @PostMapping(value = "post/cart/id={id}")
+    public void addToCart(@PathVariable String id) {
+        Book book = repository.getBookById(id);
+        repository.insertBookIntoCart(book);
     }
 
     private String[] getParamsFromString(String data){
